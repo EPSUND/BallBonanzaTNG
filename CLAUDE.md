@@ -1,12 +1,12 @@
-# CLAUDE.md — Kul med kulor (BallBonanzaTNG)
+# CLAUDE.md — Ball Bonanza (BallBonanzaTNG)
 
 Vägledning för AI-agenter (och människor) som arbetar i det här repot. Håll den kort och
 högsignal – den läses in varje session.
 
 ## 1. Projektöversikt
 
-"Kul med kulor" är en remake i React av Java-spelet
-[EPSUND/BallBonanza](https://github.com/EPSUND/BallBonanza) (en Lines-variant).
+"Ball Bonanza" (originalets svenska titel: "Kul med kulor") är en remake i React av
+Java-spelet [EPSUND/BallBonanza](https://github.com/EPSUND/BallBonanza) (en Lines-variant).
 
 - 10×10-bräde, kulor i 6 färger. Klicka på en kula, sedan på en tom ruta – kulan
   rullar dit om en fri väg finns (BFS, 4-grannskap).

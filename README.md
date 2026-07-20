@@ -1,4 +1,4 @@
-# Kul med kulor (BallBonanzaTNG)
+# Ball Bonanza (BallBonanzaTNG)
 
 En remake i React av Java-spelet [EPSUND/BallBonanza](https://github.com/EPSUND/BallBonanza)
 ("Kul med kulor"), byggd med samma teknikstack som

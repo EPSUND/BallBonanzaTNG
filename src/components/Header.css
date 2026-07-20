@@ -1,17 +1,48 @@
-header{width:100%;max-width:900px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
-h1{
-  font-family:Georgia,"Iowan Old Style","Times New Roman",serif;
-  font-weight:700;font-size:clamp(26px,4.5vw,38px);
-  letter-spacing:.06em;color:var(--title);
+header{width:100%;max-width:900px;display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+
+/* ---------- Titeln "Ball Bonanza" ----------
+   Rundad, tjock och färgglad: varje bokstav får sin färg inline i Header.tsx
+   (en av kulfärgerna). Här ligger form, glans och rörelse. */
+.title{
+  font-family:ui-rounded,"Segoe UI",Nunito,Quicksand,system-ui,-apple-system,sans-serif;
+  font-weight:800;
+  font-size:clamp(30px,5.4vw,48px);
+  letter-spacing:.01em;
+  line-height:1;
 }
-h1 .med{color:var(--ring);font-style:italic;letter-spacing:.02em}
+.ball-letter{
+  display:inline-block;
+  /* Glansen: en mörk "sockel" nedåt för djup + ett färgat sken i bokstavens
+     egen färg (currentColor) som får den att lysa som en blank kula. */
+  text-shadow:0 2px 0 #0007,0 3px 5px #0006,0 0 16px currentColor;
+  transition:transform .18s cubic-bezier(.2,1.6,.4,1);
+  /* Studsar in vid inladdning; fördröjningen sätts per bokstav i Header.tsx. */
+  animation:letterdrop .55s cubic-bezier(.2,1.6,.4,1) both;
+}
+.title-space{display:inline-block;width:.3em}
+
+@keyframes letterdrop{
+  0%{opacity:0;transform:translateY(-18px) scale(.5) rotate(-8deg)}
+  100%{opacity:1;transform:translateY(0) scale(1) rotate(0)}
+}
+
 .header-btns{display:flex;gap:8px;align-items:center}
+
+/* Lekfull lyft-effekt per bokstav – bara för mus/styrplatta. */
+@media (hover:hover){
+  .title:hover .ball-letter{transform:translateY(-5px) scale(1.14) rotate(-3deg)}
+}
+/* Respektera användare som valt bort rörelse. */
+@media (prefers-reduced-motion:reduce){
+  .ball-letter{animation:none}
+  .title:hover .ball-letter{transform:none}
+}
 
 @media (max-width:700px), (max-height:640px){
   header{margin-bottom:8px}
 }
 @media (max-height:640px){
-  h1{font-size:22px}
+  .title{font-size:26px}
   header{margin-bottom:6px}
 }
 @media (pointer:coarse){
