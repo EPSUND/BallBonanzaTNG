@@ -1,0 +1,4 @@
+.helprubrik{margin-top:6px}
+.scoretable{width:100%;border-collapse:collapse;font-size:14px}
+.scoretable td,.scoretable th{padding:4px 6px;text-align:left;border-bottom:1px solid var(--cardborder)}
+.scoretable td:not(:first-child),.scoretable th:not(:first-child){text-align:right}

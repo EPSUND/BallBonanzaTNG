@@ -1,0 +1,15 @@
+.statgrid{display:flex;flex-direction:column;gap:12px}
+.stat b{font-size:22px;font-variant-numeric:tabular-nums}
+.nextballs{display:flex;gap:6px;align-items:center;min-height:24px}
+.miniball{
+  width:22px;height:22px;border-radius:50%;
+  box-shadow:inset -2px -3px 4px #0006,0 1px 3px #0008;
+}
+
+/* Staplad mobillayout: en kompakt rad i stället för en kolumn. */
+@media (max-width:700px) and (min-height:641px){
+  .statgrid{flex-direction:row;justify-content:space-between;align-items:center;gap:8px}
+  .stat b{font-size:18px}
+  .status{padding:8px 14px}
+  .stat h2{margin-bottom:2px}
+}

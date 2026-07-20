@@ -1,0 +1,18 @@
+.ctrlbtns{display:flex;flex-direction:column;gap:8px}
+.controls .hint{font-size:13px;color:var(--muted);line-height:1.5;margin-top:10px}
+
+/* Staplad mobillayout: knappar i rad, tipset döljs (syns i hjälpdialogen). */
+@media (max-width:700px) and (min-height:641px){
+  .ctrlbtns{flex-direction:row;flex-wrap:wrap}
+  .ctrlbtns button{flex:1;white-space:nowrap}
+  .controls .hint{display:none}
+  .controls h2{display:none}
+  .controls{padding:8px 10px}
+}
+
+/* Landskap: kompaktare kort så att allt får plats i höjdled. */
+@media (max-height:640px){
+  .ctrlbtns{gap:6px}
+  .ctrlbtns button{padding:6px 10px}
+  .controls .hint{display:none}
+}

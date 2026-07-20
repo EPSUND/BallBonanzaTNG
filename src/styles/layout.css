@@ -1,0 +1,42 @@
+/* ---------- Sidlayout ----------
+   Grid i stället för flex: korten ligger i mobilens läsordning i DOM:en
+   (status → bräde → kontroller) och flyttas hit till en högerkolumn på
+   skrivbord, utan dubblerad markup. Ligger globalt eftersom reglerna placerar
+   flera komponenter mot varandra – ingen enskild komponent äger dem. */
+
+.layout{
+  display:grid;
+  grid-template-columns:auto 240px;
+  grid-template-areas:
+    "board status"
+    "board controls";
+  align-items:start;justify-content:center;
+  gap:14px 22px;width:100%;max-width:900px;
+}
+.boardwrap{grid-area:board}
+.status{grid-area:status}
+.controls{grid-area:controls}
+
+@media (max-width:700px), (max-height:640px){
+  .layout{gap:12px}
+}
+
+/* ---------- Låg skärm (landskap): behåll två kolumner, allt inom en skärm ---------- */
+@media (max-height:640px){
+  .layout{min-height:0;gap:10px 18px}
+}
+
+/* ---------- Smal OCH tillräckligt hög skärm: en kolumn ----------
+   Korten staplas i DOM-ordning: status, bräde, kontroller. min-height
+   utesluter landskap, som hanteras av blocket ovan. Statusraden och
+   kontrollerna äter höjd här, därav en större --chrome. */
+@media (max-width:700px) and (min-height:641px){
+  :root{--chrome:230px}
+
+  .layout{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-areas:"status" "board" "controls";
+    justify-items:center;gap:10px;
+  }
+  .boardwrap,.status,.controls{width:calc(var(--tile-size)*10 + 16px);max-width:100%}
+}

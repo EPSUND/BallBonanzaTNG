@@ -1,0 +1,26 @@
+import { useState } from "react";
+import { isSoundOn, toggleSound } from "../lib/sound";
+import "./Header.css";
+
+interface Props {
+  onOpenHighscores: () => void;
+  onNewGame: () => void;
+}
+
+export default function Header({ onOpenHighscores, onNewGame }: Props) {
+  const [on, setOn] = useState(isSoundOn());
+  return (
+    <header>
+      <h1>
+        KUL <span className="med">med</span> KULOR
+      </h1>
+      <div className="header-btns">
+        <button title="Ljud av/på" onClick={() => setOn(toggleSound())}>
+          {on ? "🔊" : "🔇"}
+        </button>
+        <button onClick={onOpenHighscores}>🏆 Topplista</button>
+        <button onClick={onNewGame}>Ny omgång</button>
+      </div>
+    </header>
+  );
+}

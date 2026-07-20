@@ -1,0 +1,3 @@
+.final{display:flex;gap:22px;margin:6px 0 16px}
+.final div{display:flex;flex-direction:column;font-size:13px;color:var(--muted)}
+.final b{font-size:26px;color:var(--text);font-variant-numeric:tabular-nums}

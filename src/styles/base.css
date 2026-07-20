@@ -1,0 +1,99 @@
+/* ---------- Bas: variabler, reset, elementstilar och delade byggstenar ----------
+   Laddas före all komponent-CSS. Här ligger bara det som mer än en komponent
+   använder; hör en regel till exakt en komponent bor den i komponentens fil.
+   Paletten är en mörk stålblå ton som knyter an till originalets ståltexturer. */
+
+:root{
+  --bg:#1a2130;
+  --bg2:#111622;
+  --board:#242e40;
+  --cellline:#32405a;
+  --card:#202939;
+  --cardborder:#344459;
+  --ring:#e8b93f;
+  --danger:#d95c4c;
+  --text:#e6e9ef;
+  --muted:#98a3b3;
+  --title:#dfe7f5;
+  --tile-size:46px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:radial-gradient(1200px 700px at 50% -100px,#26334c 0%,var(--bg) 55%,var(--bg2) 100%);
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  min-height:100vh;
+  /* svh, inte dvh: dvh ändras när adressfältet fälls in/ut under scroll och
+     får layouten att hoppa. svh är den stabila minsta höjden. */
+  min-height:100svh;
+  /* Stänger av dubbeltryck-zoom och dess ~300ms klickfördröjning. */
+  touch-action:manipulation;
+  -webkit-text-size-adjust:100%;
+}
+#root{
+  min-height:100vh;
+  min-height:100svh; /* se body ovan */
+  display:flex;flex-direction:column;align-items:center;
+  padding:18px 14px 40px;
+  padding-left:max(14px,env(safe-area-inset-left));
+  padding-right:max(14px,env(safe-area-inset-right));
+}
+
+button{
+  font:inherit;color:var(--text);background:#2e3b5280;
+  border:1px solid #43536e;border-radius:8px;padding:7px 14px;cursor:pointer;
+}
+button:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+button.primary{background:var(--ring);border-color:var(--ring);color:#221a08;font-weight:600}
+button:disabled{opacity:.5;cursor:default}
+
+/* Delade sidokort: StatusCard och ControlsCard. */
+.card{background:var(--card);border:1px solid var(--cardborder);border-radius:12px;padding:12px 14px}
+.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:600;margin-bottom:6px}
+
+/* ---------- Kulfärger ----------
+   Delas av brädets kulor (Board) och "Nästa"-miniatyrerna (StatusCard), och
+   bor därför här. Samma sex färger som originalets bmp-texturer. */
+.blue{background:radial-gradient(circle at 32% 28%,#a6d8ff 0%,#3583dc 45%,#123a6b 100%)}
+.green{background:radial-gradient(circle at 32% 28%,#b0f0b0 0%,#37a845 45%,#0e4a18 100%)}
+.red{background:radial-gradient(circle at 32% 28%,#ffb5ab 0%,#d63a2a 45%,#5f0f08 100%)}
+.yellow{background:radial-gradient(circle at 32% 28%,#fff5b0 0%,#e8c520 45%,#7a650a 100%)}
+.magenta{background:radial-gradient(circle at 32% 28%,#ffaef2 0%,#c92fc0 45%,#570a52 100%)}
+.teal{background:radial-gradient(circle at 32% 28%,#aef7f0 0%,#2ab5ad 45%,#0a4a47 100%)}
+
+/* ---------- Hovring: bara för mus/styrplatta ----------
+   På touch "fastnar" :hover efter ett tryck tills man rör något annat. */
+@media (hover:hover){
+  button:hover:not(:disabled){background:#3a4a66}
+  button.primary:hover:not(:disabled){background:#f0c65c}
+}
+
+/* ---------- Rutstorleken i kompakt läge: smal ELLER låg skärm ----------
+   Låg skärm måste vara med: en telefon i landskap är ~840px bred men bara
+   ~390px hög och skulle annars få skrivbordets 46px-rutor och ett bräde
+   utanför skärmen.
+
+   ANVÄND svh, INTE dvh (se body ovan). Höjdbudget: 10 rutrader plus --chrome
+   för allt annat som konkurrerar om höjden. --chrome skiljer sig mellan
+   layouterna: i landskap ligger korten BREDVID brädet och stjäl ingen höjd,
+   i den staplade mobillayouten gör de det (sätts i layout.css). Golvet på
+   22px hindrar oläsbart små rutor på riktigt låga fönster. */
+@media (max-width:700px), (max-height:640px){
+  :root{--chrome:120px}
+  :root{--tile-size:min(9.2vw,42px)} /* fallback utan svh-stöd */
+  :root{--tile-size:max(22px,min(9.2vw,calc((100svh - var(--chrome)) / 10),42px))}
+
+  #root{padding:10px 12px 24px;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+}
+
+/* Landskap: lås sidan till skärmhöjden så att inget resizas när man scrollar. */
+@media (max-height:640px){
+  #root{padding-top:8px;height:100svh}
+}
+
+/* ---------- Träffytor: styrs av pekdonet, inte av skärmbredden ---------- */
+@media (pointer:coarse){
+  /* >=44px är Apples/Googles rekommenderade minsta träffyta. */
+  button{padding:10px 14px;min-height:44px}
+}
