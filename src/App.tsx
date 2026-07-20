@@ -8,7 +8,6 @@ import ControlsCard from "./components/ControlsCard";
 import HelpDialog from "./components/HelpDialog";
 import EndDialog from "./components/EndDialog";
 import HighscoreDialog from "./components/HighscoreDialog";
-import Overlay from "./components/Overlay";
 
 export default function App() {
   const { state, actions } = useGame();
@@ -41,9 +40,6 @@ export default function App() {
         </div>
 
         <ControlsCard
-          paused={state.paused}
-          gameOver={state.phase === "over"}
-          onTogglePause={() => actions.setPaused(!state.paused)}
           onRestart={actions.restart}
           onHelp={() => setHelpOpen(true)}
           onShowResult={state.phase === "over" && endClosed ? () => setEndClosed(false) : undefined}
@@ -51,18 +47,6 @@ export default function App() {
       </div>
 
       {helpOpen && <HelpDialog onClose={() => setHelpOpen(false)} />}
-
-      {state.paused && !helpOpen && !hsOpen && (
-        <Overlay>
-          <h2>Pausat</h2>
-          <p>Spelet är pausat.</p>
-          <div className="btnrow">
-            <button className="primary" style={{ flex: 1 }} onClick={() => actions.setPaused(false)}>
-              Fortsätt
-            </button>
-          </div>
-        </Overlay>
-      )}
 
       {state.phase === "over" && !endClosed && !hsOpen && (
         <EndDialog

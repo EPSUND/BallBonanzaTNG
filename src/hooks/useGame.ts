@@ -21,7 +21,7 @@ export function useGame() {
   }, []);
 
   // Flytta kulan ett steg i taget längs vägen.
-  const movingActive = state.moving !== null && !state.paused;
+  const movingActive = state.moving !== null;
   useEffect(() => {
     if (!movingActive) return;
     const id = setInterval(() => dispatch({ type: "moveStep" }), MOVE_STEP_MS);
@@ -45,7 +45,6 @@ export function useGame() {
 
   const cellClick = useCallback((pos: GridPos) => dispatch({ type: "cellClick", pos }), []);
   const restart = useCallback(() => dispatch({ type: "start", seed: Date.now() }), []);
-  const setPaused = useCallback((value: boolean) => dispatch({ type: "setPaused", value }), []);
 
-  return { state, actions: { cellClick, restart, setPaused } };
+  return { state, actions: { cellClick, restart } };
 }

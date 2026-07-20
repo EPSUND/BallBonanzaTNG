@@ -14,7 +14,6 @@ export interface MovingBall {
 
 export interface GameState {
   phase: "playing" | "over";
-  paused: boolean;
   grid: Grid;
   /** Färgerna på de kulor som läggs ut efter nästa poänglösa drag. */
   next: number[];
@@ -38,8 +37,7 @@ export type Action =
   | { type: "start"; seed: number }
   | { type: "cellClick"; pos: GridPos }
   | { type: "moveStep" }
-  | { type: "clearDone" }
-  | { type: "setPaused"; value: boolean };
+  | { type: "clearDone" };
 
 /** Lägger ut kulor med givna färger på slumpade tomma rutor. */
 function spawnBalls(grid: Grid, colors: number[], seed: number): { seed: number; placedAll: boolean } {
@@ -71,7 +69,6 @@ export function initState(seed: number): GameState {
 
   return {
     phase: "playing",
-    paused: false,
     grid,
     next: next.colors,
     score: 0,
@@ -137,12 +134,8 @@ export function reducer(state: GameState, action: Action): GameState {
     case "start":
       return initState(action.seed);
 
-    case "setPaused":
-      if (state.phase !== "playing") return state;
-      return { ...state, paused: action.value };
-
     case "cellClick": {
-      if (state.phase !== "playing" || state.paused || state.moving || state.clearing) return state;
+      if (state.phase !== "playing" || state.moving || state.clearing) return state;
       const { pos } = action;
       const cell = state.grid[pos.row][pos.col];
 
