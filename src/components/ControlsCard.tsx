@@ -1,18 +1,16 @@
 import "./ControlsCard.css";
 
 interface Props {
-  onRestart: () => void;
   onHelp: () => void;
   /** Sätts bara när slutdialogen är stängd och kan öppnas igen. */
   onShowResult?: () => void;
 }
 
-export default function ControlsCard({ onRestart, onHelp, onShowResult }: Props) {
+export default function ControlsCard({ onHelp, onShowResult }: Props) {
   return (
     <section className="card controls">
-      <h2>Kontroller</h2>
+      <h2>Alternativ</h2>
       <div className="ctrlbtns">
-        <button onClick={onRestart}>Ny omgång</button>
         <button onClick={onHelp}>Hur man spelar</button>
         {onShowResult && (
           <button className="primary" onClick={onShowResult}>

@@ -40,7 +40,6 @@ export default function App() {
         </div>
 
         <ControlsCard
-          onRestart={actions.restart}
           onHelp={() => setHelpOpen(true)}
           onShowResult={state.phase === "over" && endClosed ? () => setEndClosed(false) : undefined}
         />
