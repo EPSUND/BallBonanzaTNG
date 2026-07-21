@@ -7,9 +7,15 @@
 .layout{
   display:grid;
   grid-template-columns:var(--board-w) var(--side-w);
+  /* Tredje raden är en tom fyllnadsrad (1fr) som suger upp höjden brädet har
+     utöver korten. Utan den delar status- och kontrollkorten brädets två rader
+     lika, och "Alternativ" trycks långt ner. Nu packas korten högst upp med
+     bara radgapet (14px) emellan – samma avstånd som ner från knapparna. */
   grid-template-areas:
     "board status"
-    "board controls";
+    "board controls"
+    "board .";
+  grid-template-rows:auto auto 1fr;
   align-items:start;justify-content:center;
   gap:14px var(--cluster-gap);width:100%;max-width:900px;
 }
@@ -36,6 +42,9 @@
   .layout{
     grid-template-columns:minmax(0,1fr);
     grid-template-areas:"status" "board" "controls";
+    /* Återställ desktopens fyllnadsrad – här är det tre staplade rader med
+       naturlig höjd; annars skulle 1fr sträcka ut kontrollkortet. */
+    grid-template-rows:none;
     justify-items:center;gap:10px;
   }
   .boardwrap,.status,.controls{width:calc(var(--tile-size)*10 + 16px);max-width:100%}
