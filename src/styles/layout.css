@@ -6,12 +6,12 @@
 
 .layout{
   display:grid;
-  grid-template-columns:auto 240px;
+  grid-template-columns:var(--board-w) var(--side-w);
   grid-template-areas:
     "board status"
     "board controls";
   align-items:start;justify-content:center;
-  gap:14px 22px;width:100%;max-width:900px;
+  gap:14px var(--cluster-gap);width:100%;max-width:900px;
 }
 .boardwrap{grid-area:board}
 .status{grid-area:status}

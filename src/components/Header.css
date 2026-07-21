@@ -28,6 +28,28 @@ header{width:100%;max-width:900px;display:flex;align-items:center;justify-conten
 
 .header-btns{display:flex;gap:8px;align-items:center}
 
+/* ---------- Desktop: rikta in headern mot spelklustret ----------
+   Samma villkor som ger .layout dess högra sidokolumn (min-width:701 &
+   min-height:641). Headern får då EXAKT samma grid-geometri som .layout
+   (samma kolumnbredder, gap, max-width och centrering), så titeln hamnar över
+   brädets vänsterkant och knapparna över sidokolumnen. */
+@media (min-width:701px) and (min-height:641px){
+  header{
+    display:grid;
+    grid-template-columns:var(--board-w) var(--side-w);
+    column-gap:var(--cluster-gap);
+    justify-content:center;
+    align-items:center;
+  }
+  .title{grid-column:1;justify-self:start}
+  /* justify-self:end ⇒ knapparnas högerkant följer sidokolumnens högerkant.
+     width:max-content hindrar att den smalare (240px) kolumnen klämmer ihop
+     knapparna så att texten bryts till två rader; raden får sin naturliga
+     bredd och tillåts sträcka sig vänsterut i stället. */
+  .header-btns{grid-column:2;justify-self:end;width:max-content}
+  .header-btns button{white-space:nowrap}
+}
+
 /* Lekfull lyft-effekt per bokstav – bara för mus/styrplatta. */
 @media (hover:hover){
   .title:hover .ball-letter{transform:translateY(-5px) scale(1.14) rotate(-3deg)}

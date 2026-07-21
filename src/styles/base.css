@@ -16,6 +16,12 @@
   --muted:#98a3b3;
   --title:#dfe7f5;
   --tile-size:46px;
+  /* Desktop-klustrets mått. Delas av .layout (sidlayout.css) OCH headern
+     (Header.css) så att rubriken kan riktas in exakt mot brädet och
+     sidokolumnen. --board-w följer --tile-size automatiskt. */
+  --board-w:calc(var(--tile-size)*10 + 16px);
+  --side-w:240px;
+  --cluster-gap:22px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
